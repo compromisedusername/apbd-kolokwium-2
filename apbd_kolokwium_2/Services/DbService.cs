@@ -84,9 +84,7 @@ public class DbService : IDbService
             objectColumns.Add(item);
         }
 
-
         
-
 
         var objectOwner = new List<ObjectOwner> { };
         foreach (var objectColumn in objectColumns)
@@ -95,7 +93,15 @@ public class DbService : IDbService
             objectOwner.Add(addItem);
         }
 
-        await _applicationContext.ObjectOwners.AddRangeAsync(objectOwner);
+        try
+        {
+            await _applicationContext.ObjectOwners.AddRangeAsync(objectOwner);
+        }
+        catch (Exception e)
+        {
+            throw new DomainException() { Message = "Duplicate! Cannot add to database!", StatusCode = 400 };
+        }
+
         await _applicationContext.SaveChangesAsync();
     }
 
