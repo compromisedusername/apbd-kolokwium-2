@@ -61,7 +61,6 @@ public class ApplicationContext : DbContext
             {
                 ID = 1,
                 Name = "Name1",
-                Objects = null
             }
 
         });

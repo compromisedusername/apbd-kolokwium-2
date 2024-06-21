@@ -96,13 +96,13 @@ public class DbService : IDbService
         try
         {
             await _applicationContext.ObjectOwners.AddRangeAsync(objectOwner);
+            await _applicationContext.SaveChangesAsync();
         }
         catch (Exception e)
         {
-            throw new DomainException() { Message = "Duplicate! Cannot add to database!", StatusCode = 400 };
+            throw new DomainException() { Message = "Duplicate item for this owner! Cannot add to database!", StatusCode = 400 };
         }
 
-        await _applicationContext.SaveChangesAsync();
     }
 
     private async Task<ObjectOwner> UpdateObjectOwner(Owner owner, ObjectColumn objectColumn)
