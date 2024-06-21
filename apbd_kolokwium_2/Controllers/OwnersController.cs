@@ -75,7 +75,13 @@ public class OwnersController : ControllerBase
             }
         }
 
-        return Created();
+        var message = new
+        {
+            Message = "Successfully created.",
+            StatusCode = 201
+        };
+        
+        return Created("api/owners/",message);
     } 
 
 }
